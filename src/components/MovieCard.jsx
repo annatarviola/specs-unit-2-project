@@ -1,13 +1,23 @@
-import styles from './MovieCard.module.css'
+const MovieCard = ({ movie, addMovie, removeMovie, list }) => {
+  const inWatchlist = list.filter((mov) => mov.id === movie.id);
 
-const MovieCard = ({movie, addMovie}) => {
+  const button =
+    inWatchlist.length === 0 ? (
+      <button onClick={() => addMovie(movie)}>Add to List</button>
+    ) : (
+      <button onClick={() => removeMovie(movie)}>Remove</button>
+    );
+
   return (
-    <div className={styles['movie-card']}>
+    <div className="movie-card">
       <div>
-        <img className={styles.image} alt='movie poster' src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} />
+        <img
+          alt="movie poster"
+          src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+        />
         <h3>{movie.original_title}</h3>
       </div>
-      <button onClick={() => addMovie(movie)}>Add to List</button>
+      {button}
     </div>
   );
 };

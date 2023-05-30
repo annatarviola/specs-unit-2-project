@@ -28,19 +28,25 @@ function App() {
   }, [page]);
 
   const addMovie = (movie) => setList([...list, movie]);
-  
+
+  const removeMovie = (movie) => {
+    const newState = list.filter((mov) => mov !== movie);
+    setList(newState);
+  };
+
   return (
     <div className="App">
       <Header />
       <main>
         <MovieScreen
           addMovie={addMovie}
+          removeMovie={removeMovie}
           list={list}
           page={page}
           setPage={setPage}
           movieList={movieList}
         />
-        <Watchlist list={list} />
+        <Watchlist list={list} removeMovie={removeMovie} />
       </main>
     </div>
   );
