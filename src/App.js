@@ -1,27 +1,47 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 import "./App.css";
 
-import Axios from 'axios'
 import Header from "./components/Header";
-require('dotenv').config
+import Watchlist from "./components/Watchlist";
+import MovieScreen from "./components/MovieScreen";
 
 function App() {
-  const APIkey = ''
-  const [movieList, setMovieList] = useState();
-  const [watchlist, setwatchlist] = useState();
+  const [movieList, setMovieList] = useState([]);
+  const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
 
-  useEffect(() => {}, [])
-
   const getData = () => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`
+      )
+      .then((res) => {
+        console.log(res.data.results);
+        setMovieList(res.data.results);
+      });
+  };
 
-  }
+  useEffect(() => {
+    getData();
+  }, [page]);
 
-
+  const addMovie = (movie) => setList([...list, movie]);
+  
   return (
     <div className="App">
       <Header />
+      <main>
+        <MovieScreen
+          addMovie={addMovie}
+          list={list}
+          page={page}
+          setPage={setPage}
+          movieList={movieList}
+        />
+        <Watchlist list={list} />
+      </main>
     </div>
   );
 }
