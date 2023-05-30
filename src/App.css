@@ -24,6 +24,10 @@ button {
   min-width: 125px;
 }
 
+button:hover {
+  background-color:aliceblue;
+}
+
 .page {
   width: calc(100vw - 520px);
   display: flex;
