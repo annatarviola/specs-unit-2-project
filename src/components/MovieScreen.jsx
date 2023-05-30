@@ -9,7 +9,6 @@ const MovieScreen = ({
   movieList,
 }) => {
   const decrement = () => setPage(page--);
-
   const increment = () => setPage(page++);
 
   const movieDisplay = movieList.map((movie, index) => {
